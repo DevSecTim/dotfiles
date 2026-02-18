@@ -32,8 +32,8 @@ fi
 
 # Oh My Zsh
 if [[ -d "$HOME/.oh-my-zsh" ]]; then
-    ZSH_THEME="half-life"
-    plugins=(git dotenv)
+    ZSH_THEME="robbyrussell"
+    plugins=(git dotenv zsh-claude-code-shell)
     export ZSH="$HOME/.oh-my-zsh"
     source "$ZSH/oh-my-zsh.sh"
 fi

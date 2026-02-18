@@ -1,13 +1,22 @@
 {
-  "cleanupPeriodDays": 30,
-  "showTurnDuration": true,
-  "autoUpdatesChannel": "stable",
   "permissions": {
     "allow": [
       "Bash(git diff*)",
       "Bash(git log*)",
       "Bash(git status*)",
       "Bash(ls*)"
+    ],
+    "deny": [
+      "Bash(sudo:*)",
+      "Bash(rm -rf:*)",
+      "Read(**/.env)"
     ]
-  }
+  },
+  "env": {
+    "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1"
+  },
+  "cleanupPeriodDays": 30,
+  "autoUpdatesChannel": "stable",
+  "showTurnDuration": true,
+  "effortLevel": "medium"
 }
