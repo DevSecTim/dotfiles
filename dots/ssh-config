@@ -1,0 +1,11 @@
+Host syne-gitlab
+    HostName gitlab.com
+    User git
+    IdentityFile ~/.ssh/id_ed25519.syne-gitlab
+    IdentitiesOnly yes
+
+Host syne-github
+    HostName github.com
+    User git
+    IdentityFile ~/.ssh/id_ed25519.syne-github
+    IdentitiesOnly yes

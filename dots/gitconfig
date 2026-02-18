@@ -1,0 +1,27 @@
+[user]
+    name = Tim Jones
+    email = tgjonesuk@gmail.com
+
+[filter "lfs"]
+    clean = git-lfs clean -- %f
+    smudge = git-lfs smudge -- %f
+    process = git-lfs filter-process
+    required = true
+
+[url "git@gitlab.com:"]
+    insteadOf = https://gitlab.com/
+
+[url "git@github.com:"]
+    insteadOf = https://github.com/
+
+[IncludeIf "gitdir:/Users/timjones/Workspace/gitlab.com/synechron-code/"]
+    path = /Users/timjones/.gitconfig.d/syne-gitlab
+
+[IncludeIf "gitdir:/Users/timjones/Workspace/gitlab.com/timjones_syne/"]
+    path = /Users/timjones/.gitconfig.d/syne-gitlab
+
+[IncludeIf "gitdir:/Users/timjones/Workspace/github.com/synechron/"]
+    path = /Users/timjones/.gitconfig.d/syne-github
+
+[IncludeIf "gitdir:/Users/timjones/Workspace/github.com/Tim-Jones_syne/"]
+    path = /Users/timjones/.gitconfig.d/syne-github

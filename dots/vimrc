@@ -22,7 +22,7 @@ set shiftwidth=4
 set expandtab
 
 " Show whitespace and special characters
-set listchars=tab:>-,eol:$,trail:-,precedes:<,extends:>
+set listchars=tab:>-,trail:-,precedes:<,extends:>
 set list
 
 " No sound
@@ -40,6 +40,14 @@ set title
 
 " Increase command history
 set history=1000
+
+" Keep undo history across sessions
+set undofile
+set undodir=~/.vim/undo//
+
+" Keep swap and backup files out of the working directory
+set backupdir=~/.vim/backup//
+set directory=~/.vim/swap//
 
 " Turn autoindenting on
 set autoindent
@@ -65,16 +73,33 @@ set hlsearch
 set ignorecase
 set smartcase
 
+" Clear search highlight with Escape
+nnoremap <Esc> :nohlsearch<CR>
+
+" Centre screen after search jump
+nnoremap n nzz
+nnoremap N Nzz
+
 " Add line under cursor
 set cursorline
 
-" Set 80 char gutter and highlight
-set colorcolumn=80
-match ErrorMsg /\%>80v.\+/
 
 " Increase scrolling speed
 nnoremap <C-e> 3<C-e>
 nnoremap <C-y> 3<C-y>
+
+" Quick window switching
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
+
+" Y yanks to end of line (consistent with D and C)
+nnoremap Y y$
+
+" Stay in visual mode after indenting
+vnoremap < <gv
+vnoremap > >gv
 
 " Set line numbers to gray
 highlight LineNr ctermfg=darkgray
@@ -84,7 +109,7 @@ set number
 nmap <silent> <F10> :set invnumber<CR>
 
 " F11 toggles whitespace (off by default)
-set listchars=trail:·,eol:$
+set listchars=trail:·
 nmap <silent> <F11> :set nolist!<CR>
 
 " Status line settings
@@ -95,6 +120,15 @@ highlight StatusLine cterm=none ctermfg=7 ctermbg=4
 " Format verticle split bar
 set fillchars=vert:\│
 highlight VertSplit ctermfg=0 ctermbg=7
+
+" Return to last edit position when reopening a file
+autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+
+" Two-space indent for yaml and json
+autocmd FileType yaml,json setlocal tabstop=2 shiftwidth=2
+
+" Strip trailing whitespace on save (except markdown where trailing spaces are meaningful)
+autocmd BufWritePre * if &ft != 'markdown' | :%s/\s\+$//e | endif
 
 " Setup default tags file search
 set tags=./tags,./.tags,tags,.tags
