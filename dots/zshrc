@@ -108,7 +108,14 @@ if (( $+commands[gcloud] )); then
 fi
 
 # Rancher Desktop
-[[ -d "$HOME/.rd" ]] && export PATH="$HOME/.rd/bin:$PATH"
+if [[ -d "$HOME/.rd" ]]; then
+    export PATH="$HOME/.rd/bin:$PATH"
+fi
+
+# OpenClaw
+if (( $+commands[openclaw] )) && [[ -f "$HOME/.openclaw/completions/openclaw.zsh" ]]
+    source "$HOME/.openclaw/completions/openclaw.zsh"
+fi
 
 # Aliases and functions
 alias ctx='eval $_CTX'
