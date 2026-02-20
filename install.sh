@@ -12,7 +12,6 @@ FILES=(
     "dots/gitconfig:$HOME/.gitconfig"
     "dots/gitconfig.d/personal:$HOME/.gitconfig.d/personal"
     "dots/gitconfig.d/synechron:$HOME/.gitconfig.d/synechron"
-    "dots/claude/settings.json:$HOME/.claude/settings.json"
 )
 
 backed_up=0
