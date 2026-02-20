@@ -114,7 +114,7 @@ if [[ -d "$HOME/.rd" ]]; then
 fi
 
 # OpenClaw
-if (( $+commands[openclaw] )) && [[ -f "$HOME/.openclaw/completions/openclaw.zsh" ]]
+if (( $+commands[openclaw] )) && [[ -f "$HOME/.openclaw/completions/openclaw.zsh" ]]; then
     source "$HOME/.openclaw/completions/openclaw.zsh"
 fi
 
