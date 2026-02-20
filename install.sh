@@ -10,6 +10,7 @@ FILES=(
     "dots/vimrc:$HOME/.vimrc"
     "dots/tmux.conf:$HOME/.tmux.conf"
     "dots/gitconfig:$HOME/.gitconfig"
+    "dots/gitconfig.d/synechron:$HOME/.gitconfig.d/synechron"
     "dots/ssh-config:$HOME/.ssh/config"
     "dots/claude-settings.json:$HOME/.claude/settings.json"
 )
