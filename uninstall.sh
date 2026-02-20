@@ -10,8 +10,7 @@ FILES=(
     "dots/vimrc:$HOME/.vimrc"
     "dots/tmux.conf:$HOME/.tmux.conf"
     "dots/gitconfig:$HOME/.gitconfig"
-    "dots/ssh-config:$HOME/.ssh/config"
-    "dots/claude-settings.json:$HOME/.claude/settings.json"
+    "dots/claude/settings.json:$HOME/.claude/settings.json"
 )
 
 # Find the most recent backup directory

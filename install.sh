@@ -12,8 +12,7 @@ FILES=(
     "dots/gitconfig:$HOME/.gitconfig"
     "dots/gitconfig.d/personal:$HOME/.gitconfig.d/personal"
     "dots/gitconfig.d/synechron:$HOME/.gitconfig.d/synechron"
-    "dots/ssh-config:$HOME/.ssh/config"
-    "dots/claude-settings.json:$HOME/.claude/settings.json"
+    "dots/claude/settings.json:$HOME/.claude/settings.json"
 )
 
 backed_up=0
@@ -69,12 +68,6 @@ fi
 
 # Vim runtime directories
 mkdir -p "$HOME/.vim/undo" "$HOME/.vim/backup" "$HOME/.vim/swap"
-
-# Enforce ssh permissions
-if [[ -d "$HOME/.ssh" ]]; then
-    chmod 700 "$HOME/.ssh"
-    [[ -L "$HOME/.ssh/config" ]] && chmod 600 "$HOME/.ssh/config"
-fi
 
 echo ""
 echo "Done: $linked linked, $backed_up backed up, $skipped already current."
