@@ -1,3 +1,11 @@
+Host personal-mac
+    HostName Tims-Personal-Mac.local
+    User tim
+
+Host synechron-mac
+    HostName Tims-Synechron-Mac.local
+    User timjones
+
 Host syne-gitlab
     HostName gitlab.com
     User git
