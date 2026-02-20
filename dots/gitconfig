@@ -10,7 +10,13 @@
 [IncludeIf "gitdir:~/Workspace/github.com/DevSecTim/"]
     path = ~/.gitconfig.d/personal
 
+[IncludeIf "gitdir:~/Workspace/gitlab.com/tgjones"]
+    path = ~/.gitconfig.d/personal
+
 [IncludeIf "gitdir:~/Workspace/github.com/Tim-Jones_syne/"]
+    path = ~/.gitconfig.d/synechron
+
+[IncludeIf "gitdir:~/Workspace/gitlab.com/timjones_syne/"]
     path = ~/.gitconfig.d/synechron
 
 [IncludeIf "gitdir:~/Workspace/github.com/synechron/"]
