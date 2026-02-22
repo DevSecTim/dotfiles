@@ -12,6 +12,7 @@ FILES=(
     "dots/gitconfig:$HOME/.gitconfig"
     "dots/gitconfig.d/personal:$HOME/.gitconfig.d/personal"
     "dots/gitconfig.d/synechron:$HOME/.gitconfig.d/synechron"
+    "dots/ssh/config:$HOME/.ssh/config"
 )
 
 backed_up=0
@@ -45,25 +46,9 @@ for entry in "${FILES[@]}"; do
     ((linked++))
 done
 
-# Oh My Zsh custom plugins
-# Format: "org/repo" — cloned into ${ZSH_CUSTOM}/plugins/<repo>
-ZSH_CUSTOM_PLUGINS=(
-    "ArielTM/zsh-claude-code-shell"
-)
-
-if [[ -d "$HOME/.oh-my-zsh" ]]; then
-    ZSH_CUSTOM="${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}"
-    for plugin_ref in "${ZSH_CUSTOM_PLUGINS[@]}"; do
-        plugin_name="${plugin_ref##*/}"
-        plugin_dir="$ZSH_CUSTOM/plugins/$plugin_name"
-        if [[ -d "$plugin_dir" ]]; then
-            echo "skip    omz plugin $plugin_name (already installed)"
-        else
-            echo "clone   omz plugin $plugin_name"
-            git clone --depth=1 "https://github.com/$plugin_ref" "$plugin_dir"
-        fi
-    done
-fi
+# SSH directory (required before config symlink is used)
+mkdir -p "$HOME/.ssh" && chmod 700 "$HOME/.ssh"
+mkdir -p "$HOME/.config/ssh_config.d"
 
 # Vim runtime directories
 mkdir -p "$HOME/.vim/undo" "$HOME/.vim/backup" "$HOME/.vim/swap"

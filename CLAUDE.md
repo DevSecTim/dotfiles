@@ -4,25 +4,38 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Overview
 
-This is a personal dotfiles repository containing shell configuration (zsh) and vim settings. Files are designed to be symlinked into `$HOME`.
+Personal dotfiles repository. All managed files live under `dots/` and are symlinked into `$HOME` by `install.sh`.
 
-## File Structure
+## Managed Files
 
-- `.zprofile` — Login shell setup: PATH construction, environment variables, language version managers (pyenv, jenv, luarocks), Homebrew, and OS-specific config (macOS/Linux)
-- `.zshrc` — Interactive shell setup: Oh My Zsh, tool completions (kubectl, terraform, aws, stern, argocd), cloud context aliases, and local overrides from `~/.local/zshrc.d/`
-- `.vimrc` — Vim configuration (4-space tabs, 80-char column, syntax highlighting, status line)
+| Source | Target |
+|---|---|
+| `dots/zshrc` | `~/.zshrc` |
+| `dots/vimrc` | `~/.vimrc` |
+| `dots/tmux.conf` | `~/.tmux.conf` |
+| `dots/gitconfig` | `~/.gitconfig` |
+| `dots/gitconfig.d/personal` | `~/.gitconfig.d/personal` |
+| `dots/gitconfig.d/synechron` | `~/.gitconfig.d/synechron` |
+| `dots/ssh/config` | `~/.ssh/config` |
 
-## Install / Uninstall
+`install.sh` also creates `~/.config/ssh_config.d/` and `~/.vim/{undo,backup,swap}/`.
 
-- `./install.sh` — Symlinks all dotfiles into `$HOME`. Existing files are backed up to `~/.dotfiles_backup/<timestamp>/`.
-- `./uninstall.sh` — Removes symlinks pointing to this repo and restores the most recent backup.
-
-Both scripts skip `.git`, `CLAUDE.md`, `AGENTS.md`, and the scripts themselves.
+> **Note**: `uninstall.sh` currently only removes the first 4 entries (zshrc, vimrc, tmux.conf, gitconfig) — it does not remove the gitconfig.d or ssh/config symlinks.
 
 ## Key Patterns
 
-- **Conditional tool setup**: All tool configuration guards on command existence using `(( $+commands[tool] ))` or `[ -d path ]`. Follow this pattern when adding new tools.
-- **`_CTX` accumulator**: Cloud CLI context lines are prepended to `_CTX` and displayed via the `ctx` alias. To add a new cloud/context provider, prepend to `_CTX` inside a guard block.
-- **Local overrides**: Machine-specific config goes in `~/.local/zshrc.d/` (sourced by `.zshrc`) — not in this repo.
-- **Profile sourcing guard**: `.zshrc` sources `.zprofile` with a `PROFILE_SOURCED` flag to prevent double-sourcing.
-- **Cross-platform**: `.zprofile` branches on `$OSTYPE` for macOS vs Linux differences (Homebrew paths, Wine config).
+- **Conditional tool setup**: Guard all tool config on command/path existence using `(( $+commands[tool] ))` or `[[ -d path ]]`. Follow this for every new tool added to `dots/zshrc`.
+
+- **`_CTX` accumulator**: Lines are prepended to `_CTX` and printed by the `ctx` alias. Each cloud/context provider appends inside its own guard block. Order of prepending determines display order (last prepended shows first).
+
+- **`_cached_completion`**: Shell function in `dots/zshrc` that regenerates a tool's completion script only when the binary is newer than the cached file (`~/.cache/zsh/<cmd>.zsh`). Use this for slow `<tool> completion zsh` calls.
+
+- **Local overrides (shell)**: Machine-specific shell config goes in `~/.local/zshrc.d/` (glob-sourced at end of `.zshrc`) — not in this repo.
+
+- **Local overrides (SSH)**: Machine-specific SSH hosts go in `~/.config/ssh_config.d/` (included at top of `dots/ssh/config`) — not in this repo.
+
+- **Git identity routing**: `dots/gitconfig` uses `[IncludeIf "gitdir:~/Workspace/..."]` to select the correct user identity and SSH key (`~/.gitconfig.d/personal` or `~/.gitconfig.d/synechron`) based on repo path. Repos outside `~/Projects/` get no identity — add new contexts by adding an `IncludeIf` block and a corresponding `dots/gitconfig.d/<context>` file.
+
+- **Cross-platform**: `dots/zshrc` branches on `$OSTYPE` for macOS vs Linux (Homebrew paths, Wine config). Homebrew prefix is set as a variable to avoid the slow `brew --prefix` subprocess on every shell start.
+
+- **tmux plugins**: `dots/tmux.conf` declares plugins via tpm but the `run tpm` line is commented out. Uncomment the last line after installing tpm (`~/.tmux/plugins/tpm`).

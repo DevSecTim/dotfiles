@@ -7,20 +7,20 @@
 [url "git@github.com:"]
     insteadOf = https://github.com/
 
-[IncludeIf "gitdir:~/Workspace/github.com/DevSecTim/"]
+[IncludeIf "gitdir:~/Projects/github.com/DevSecTim/"]
     path = ~/.gitconfig.d/personal
 
-[IncludeIf "gitdir:~/Workspace/gitlab.com/tgjones"]
+[IncludeIf "gitdir:~/Projects/gitlab.com/tgjones"]
     path = ~/.gitconfig.d/personal
 
-[IncludeIf "gitdir:~/Workspace/github.com/Tim-Jones_syne/"]
+[IncludeIf "gitdir:~/Projects/github.com/Tim-Jones_syne/"]
     path = ~/.gitconfig.d/synechron
 
-[IncludeIf "gitdir:~/Workspace/gitlab.com/timjones_syne/"]
+[IncludeIf "gitdir:~/Projects/gitlab.com/timjones_syne/"]
     path = ~/.gitconfig.d/synechron
 
-[IncludeIf "gitdir:~/Workspace/github.com/synechron/"]
+[IncludeIf "gitdir:~/Projects/github.com/synechron/"]
     path = ~/.gitconfig.d/synechron
 
-[IncludeIf "gitdir:~/Workspace/gitlab.com/synechron-code/"]
+[IncludeIf "gitdir:~/Projects/gitlab.com/synechron-code/"]
     path = ~/.gitconfig.d/synechron

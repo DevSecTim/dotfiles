@@ -1,0 +1,28 @@
+# ~/.ssh/config
+# Managed by dotfiles — machine-specific hosts go in ~/.config/ssh_config.d/
+Include ~/.config/ssh_config.d/*
+
+# Global defaults
+Host *
+    AddKeysToAgent yes
+    IdentityFile ~/.ssh/id_ed25519
+    ServerAliveInterval 60
+    ServerAliveCountMax 3
+
+# Alias: Tims-Mac-mini.local
+Host mac-mini
+    HostName tims-mac-mini.local
+    IdentityFile ~/.ssh/id_ed25519.personal
+    User tim
+
+# Alias: Tims-MacBook-Air.local
+Host macbook-air
+    HostName tims-macbook-air.local
+    IdentityFile ~/.ssh/id_ed25519.personal
+    User tim
+
+# Alias: Tims-Syne-MacBook.local
+Host syne-macbook
+    HostName tims-syne-macbook.local
+    IdentityFile ~/.ssh/id_ed25519.synechron
+    User timjones
