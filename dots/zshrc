@@ -104,6 +104,11 @@ if (( $+commands[gcloud] )); then
     _CTX='echo "GCP Project: $(gcloud config get-value project)";'$_CTX
 fi
 
+# Tailscale
+if (( $+commands[tailscale] )); then
+    _CTX='echo "Tailnet: $(tailscale status --json 2>/dev/null | jq -r ".Self.DNSName // empty" | sed "s/\.$//")";'$_CTX
+fi
+
 # Rancher Desktop
 if [[ -d "$HOME/.rd" ]]; then
     export PATH="$HOME/.rd/bin:$PATH"

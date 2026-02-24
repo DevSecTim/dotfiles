@@ -9,20 +9,20 @@ Host *
     ServerAliveInterval 60
     ServerAliveCountMax 3
 
-# Alias: Tims-Mac-mini.local
-Host mac-mini
-    HostName tims-mac-mini.local
+# Alias: Tims-Mac-mini
+Host mac-mini tims-mac-mini.angler-pancake.ts.net
+    HostName tims-mac-mini.angler-pancake.ts.net
     IdentityFile ~/.ssh/id_ed25519.personal
     User tim
 
-# Alias: Tims-MacBook-Air.local
-Host macbook-air
-    HostName tims-macbook-air.local
+# Alias: Tims-MacBook-Air
+Host macbook-air tims-macbook-air.angler-pancake.ts.net
+    HostName tims-macbook-air.angler-pancake.ts.net
     IdentityFile ~/.ssh/id_ed25519.personal
     User tim
 
-# Alias: Tims-Syne-MacBook.local
-Host syne-macbook
-    HostName tims-syne-macbook.local
+# Alias: Tims-Syne-MacBook
+Host syne-macbook tims-syne-macbook.angler-pancake.ts.net
+    HostName tims-syne-macbook.angler-pancake.ts.net
     IdentityFile ~/.ssh/id_ed25519.synechron
     User timjones
