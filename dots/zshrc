@@ -35,16 +35,26 @@ if [[ -d "$HOME/.oh-my-zsh" ]]; then
     PROMPT="%(?:%{$fg_bold[green]%}➜ :%{$fg_bold[red]%}➜ )%{$fg[cyan]%}%m %c%{$reset_color%} \$(git_prompt_info)"
 fi
 
+# Completion cache dir — _cached_completion writes _<cmd> files here
+# Added to fpath after OMZ since OMZ resets fpath when it sources
+_COMPLETION_CACHE="${XDG_CACHE_HOME:-$HOME/.cache}/zsh/completions"
+fpath=("$_COMPLETION_CACHE" $fpath)
+
 # Cached completion helper
-#  — regenerates only when the binary is newer than the cache
+#  — writes _<cmd> into the fpath cache dir, regenerating only when the binary is newer
+#  — files that don't define _<cmd>() can't be autoloaded; they're sourced after compinit
+_cached_completion_sources=()
 _cached_completion() {
     local cmd=$1; shift
-    local cache="${XDG_CACHE_HOME:-$HOME/.cache}/zsh/${cmd}.zsh"
+    local cache="$_COMPLETION_CACHE/_${cmd}"
     if [[ ! -f "$cache" || "$(command -v $cmd)" -nt "$cache" ]]; then
-        mkdir -p "${cache:h}"
+        mkdir -p "$_COMPLETION_CACHE"
         "$@" > "$cache" 2>/dev/null || { rm -f "$cache"; return 1; }
     fi
-    source "$cache"
+    # Queue non-autoloadable files to source after compinit
+    if ! command grep -q "^_${cmd}()" "$cache" 2>/dev/null; then
+        _cached_completion_sources+=("$cache")
+    fi
 }
 
 # Vim
@@ -111,22 +121,28 @@ if (( $+commands[tailscale] )); then
     _cached_completion tailscale tailscale completion zsh
 fi
 
+# Docker
+if [[ -d "$HOME/.docker/completions" ]]; then
+    fpath=("$HOME/.docker/completions" $fpath)
+fi
+#
 # Rancher Desktop
 if [[ -d "$HOME/.rd" ]]; then
     export PATH="$HOME/.rd/bin:$PATH"
 fi
-#
-# Docker
-if [[ -d "$HOME/.docker/completions" ]]; then
-    fpath=("$HOME/.docker/completions" $fpath)
-    autoload -Uz compinit
-    compinit
-fi
 
 # OpenClaw
 if (( $+commands[openclaw] )); then
-    _cached_completion openclaw openclaw completion zsh
+    _cached_completion openclaw openclaw completion -s zsh
 fi
+
+# compinit — run after all fpath additions (separate dump so OMZ's compinit doesn't mask ours)
+autoload -Uz compinit
+compinit -d "$_COMPLETION_CACHE/.zcompdump"
+
+# Source completions that aren't fpath-autoloadable (must run after compinit)
+for _f in $_cached_completion_sources; do source "$_f"; done
+unset _f _cached_completion_sources
 
 # Aliases and functions
 alias ctx='eval $_CTX'
