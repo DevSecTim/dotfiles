@@ -24,3 +24,6 @@
 
 [IncludeIf "gitdir:~/Projects/gitlab.com/synechron-code/"]
     path = ~/.gitconfig.d/synechron
+
+[IncludeIf "gitdir:~/Projects/gitlab.com/riverstoneinternational/"]
+    path = ~/.gitconfig.d/synechron
