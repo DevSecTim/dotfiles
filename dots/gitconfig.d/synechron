@@ -3,4 +3,4 @@
     email = tim.jones@synechron.com
 
 [core]
-    sshCommand = ssh -i ~/.ssh/id_ed25519.synechron -o IdentitiesOnly=yes
+    sshCommand = ssh -F /dev/null -i ~/.ssh/id_ed25519.synechron -o IdentitiesOnly=yes
