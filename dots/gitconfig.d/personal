@@ -1,6 +1,6 @@
 [user]
     name = Tim Jones
-    email = tgjonesuk@gmail.com
+    email = 2226767+DevSecTim@users.noreply.github.com
 
 [core]
     sshCommand = ssh -F /dev/null -i ~/.ssh/id_ed25519.personal -o IdentitiesOnly=yes
